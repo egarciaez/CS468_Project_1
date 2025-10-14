@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 // Import route files
 const authRoutes = require('./routes/auth'); // Import authentication-related routes
 const taskRoutes = require('./routes/tasks');  // Import task-related routes
+const listRoutes = require('./routes/lists');  // Import task list-related routes
 
 // Initialize app
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.json());      // Parse JSON request bodies
 // Route endpoints
 app.use('/api/auth', authRoutes);   // Handles register/login routes
 app.use('/api/tasks', taskRoutes);  // Handles task CRUD routes
+app.use('/api/lists', listRoutes);  // Handles task list CRUD routes
 
 // Base route — simple health check
 app.get('/', (req, res) => res.json({ message: 'TaskTrack API' }));
