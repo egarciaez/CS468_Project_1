@@ -18,7 +18,7 @@ module.exports = {
    * Creates a new task for the authenticated user
    * 
    * POST /api/tasks
-   * Body: { title, description?, assignee_id?, status?, list_id?, due_date? }
+   * Body: { title, description?, assignee_id?, status?, list_id?, due_date?, priority? }
    * 
    * @param {Object} req - Express request object
    * @param {Object} req.user - Authenticated user (set by authMiddleware)
@@ -30,16 +30,24 @@ module.exports = {
    * @param {string} [req.body.status='todo'] - Task status
    * @param {number} [req.body.list_id] - ID of task list to assign to
    * @param {string} [req.body.due_date] - ISO datetime string for due date
+   * @param {string} [req.body.priority='medium'] - Task priority (high, medium, low)
    * @param {Object} res - Express response object
    * @returns {Promise<void>}
    */
   async createTask(req, res) {
     try {
-      const { title, description, assignee_id, status, list_id, due_date } = req.body;
+      const { title, description, assignee_id, status, list_id, due_date, priority } = req.body;
       
       // Validate required fields
       if (!title) {
         return res.status(400).json({ message: 'title required' });
+      }
+      
+      // Validate priority if provided
+      if (priority !== undefined && priority !== null && priority !== '') {
+        if (!['high', 'medium', 'low'].includes(priority)) {
+          return res.status(400).json({ message: 'Priority must be high, medium, or low' });
+        }
       }
       
       // Validate list_id if provided - ensure user owns the list
@@ -62,7 +70,8 @@ module.exports = {
         assignee_id: assignee_id || req.user.id, // Default to current user if not specified
         status: status || 'todo',
         list_id,
-        due_date
+        due_date,
+        priority: priority || 'medium'
       });
       
       res.status(201).json(task);
@@ -73,25 +82,42 @@ module.exports = {
   },
 
   /**
-   * Retrieves tasks for the authenticated user with optional list filtering
+   * Retrieves tasks for the authenticated user with optional list filtering and sorting
    * 
-   * GET /api/tasks?list_id=123
-   * Query params: list_id (optional) - Filter tasks by specific list
+   * GET /api/tasks?list_id=123&sort_by=priority&sort_order=asc
+   * Query params: 
+   * - list_id (optional) - Filter tasks by specific list
+   * - sort_by (optional) - Sort field (created_at, priority, due_date, title)
+   * - sort_order (optional) - Sort order (asc, desc)
    * 
    * @param {Object} req - Express request object
    * @param {Object} req.user - Authenticated user (set by authMiddleware)
    * @param {number} req.user.id - User ID
    * @param {Object} req.query - Query parameters
    * @param {string} [req.query.list_id] - Optional list ID to filter by
+   * @param {string} [req.query.sort_by] - Field to sort by
+   * @param {string} [req.query.sort_order] - Sort order (asc, desc)
    * @param {Object} res - Express response object
    * @returns {Promise<void>}
    */
   async getTasks(req, res) {
     try {
-      const { list_id } = req.query;
+      const { list_id, sort_by = 'created_at', sort_order = 'desc' } = req.query;
       
-      // Get tasks for user, optionally filtered by list
-      const tasks = await Task.getAllForUser(req.user.id, list_id);
+      // Validate sort parameters
+      const validSortFields = ['created_at', 'priority', 'due_date', 'title'];
+      const validSortOrders = ['asc', 'desc'];
+      
+      if (!validSortFields.includes(sort_by)) {
+        return res.status(400).json({ message: 'Invalid sort_by parameter' });
+      }
+      
+      if (!validSortOrders.includes(sort_order)) {
+        return res.status(400).json({ message: 'Invalid sort_order parameter' });
+      }
+      
+      // Get tasks for user with filtering and sorting
+      const tasks = await Task.getAllForUser(req.user.id, list_id, sort_by, sort_order);
       
       res.json(tasks);
     } catch (err) {
@@ -104,7 +130,7 @@ module.exports = {
    * Updates an existing task
    * 
    * PUT /api/tasks/:id
-   * Body: { title?, description?, status?, list_id?, due_date? }
+   * Body: { title?, description?, status?, list_id?, due_date?, priority? }
    * 
    * @param {Object} req - Express request object
    * @param {Object} req.user - Authenticated user (set by authMiddleware)
@@ -119,6 +145,13 @@ module.exports = {
     try {
       const { id } = req.params;
       const changes = req.body;
+      
+      // Validate priority if provided
+      if (changes.priority !== undefined && changes.priority !== null && changes.priority !== '') {
+        if (!['high', 'medium', 'low'].includes(changes.priority)) {
+          return res.status(400).json({ message: 'Priority must be high, medium, or low' });
+        }
+      }
       
       // Validate list_id if provided - ensure user owns the list
       if (changes.list_id) {
