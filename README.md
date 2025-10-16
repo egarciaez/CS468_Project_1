@@ -184,9 +184,7 @@ frontend/
 ### Query Parameters
 - `list_id` - Filter tasks by specific list
 
-## 🧪 Testing
-
-The application follows Test-Driven Development (TDD) principles with comprehensive test coverage:
+## Testing
 
 ### Backend Tests (87 tests)
 - **Authentication Tests**: User registration and login
@@ -201,7 +199,7 @@ The application follows Test-Driven Development (TDD) principles with comprehens
 - **Integration Tests**: Component interaction testing
 - **User Interaction Tests**: Form submission and user actions
 
-## 🔒 Security Features
+## Security Features
 
 - **Password Hashing**: bcryptjs for secure password storage
 - **JWT Authentication**: Secure token-based authentication
@@ -210,7 +208,7 @@ The application follows Test-Driven Development (TDD) principles with comprehens
 - **CORS Configuration**: Proper cross-origin resource sharing setup
 - **Error Handling**: Secure error messages without sensitive data exposure
 
-## 🎨 Design Principles
+## Design Principles
 
 ### Separation of Concerns
 - **Controllers**: Handle HTTP requests and responses
@@ -230,7 +228,7 @@ The application follows Test-Driven Development (TDD) principles with comprehens
 - **Related Functionality**: Related features grouped together
 - **Clear Interfaces**: Well-defined module boundaries
 
-## 🚀 Deployment
+## Deployment
 
 ### Environment Variables
 Create a `.env` file in the backend directory:
@@ -274,25 +272,17 @@ npm run build
 4. Click "Delete" to remove tasks
 5. Tasks are automatically organized by priority and creation date
 
-## 🤝 Contributing
+Backend: 
+<img width="1364" height="684" alt="image" src="https://github.com/user-attachments/assets/0c9d82da-9bac-4e66-9083-c6f0cf4284ff" />
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Frontend: 
+<img width="674" height="666" alt="image" src="https://github.com/user-attachments/assets/83f9a6e0-bb77-47a2-aa37-d27f121eb6f3" />
+<img width="682" height="665" alt="image" src="https://github.com/user-attachments/assets/348cb163-544d-468d-9c09-fe8aaae7dcc9" />
+<img width="681" height="671" alt="image" src="https://github.com/user-attachments/assets/74e86bbd-f76f-4efe-b6b8-b8c33a88e2f0" />
 
-## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Authors
 
-- **Eliza Garcia** - *Initial work* - [egarciaez](https://github.com/egarciaez)
 
-## 🙏 Acknowledgments
 
-- React team for the amazing framework
-- Express.js team for the robust backend framework
-- Jest team for the excellent testing framework
-- All open-source contributors who made this project possible
+
