@@ -21,7 +21,7 @@ export default function CreateTask({ onCreated, selectedListId }) {
     description: '', 
     list_id: selectedListId || '', // Pre-select list if provided
     due_date: '',
-    status: 'todo'
+    priority: 'medium'
   });
   
   // Available task lists for dropdown
@@ -84,7 +84,7 @@ export default function CreateTask({ onCreated, selectedListId }) {
         description: form.description,
         list_id: form.list_id || null, // Convert empty string to null
         due_date: form.due_date || null,
-        status: form.status
+        priority: form.priority
       };
       
       // Send task data to backend
@@ -96,7 +96,7 @@ export default function CreateTask({ onCreated, selectedListId }) {
         description: '', 
         list_id: selectedListId || '', // Preserve selectedListId if provided
         due_date: '',
-        status: 'todo'
+        priority: 'medium'
       });
       
       // Notify parent component to refresh task list
@@ -149,17 +149,18 @@ export default function CreateTask({ onCreated, selectedListId }) {
             type="datetime-local"
             value={form.due_date} 
             onChange={e => setForm({...form, due_date: e.target.value})}
+            placeholder="Due date (optional)"
           />
         </div>
 
         <div className="form-group">
           <select 
-            value={form.status} 
-            onChange={e => setForm({...form, status: e.target.value})}
+            value={form.priority} 
+            onChange={e => setForm({...form, priority: e.target.value})}
           >
-            <option value="todo">To Do</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
+            <option value="high">🔥 High Priority</option>
+            <option value="medium">⚡ Medium Priority</option>
+            <option value="low">📝 Low Priority</option>
           </select>
         </div>
 

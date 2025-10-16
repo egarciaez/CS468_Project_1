@@ -8,12 +8,13 @@ export default function TaskList({ selectedListId, onTaskUpdate }) {
   const [loading, setLoading] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [editData, setEditData] = useState({});
+  // Removed sort options - using default backend sorting
 
   // Fetch tasks from backend
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const url = selectedListId ? `/tasks?list_id=${selectedListId}` : '/tasks';
+      let url = selectedListId ? `/tasks?list_id=${selectedListId}` : '/tasks';
       const res = await api.get(url);
       setTasks(res.data);
     } catch (err) {
@@ -47,6 +48,7 @@ export default function TaskList({ selectedListId, onTaskUpdate }) {
         task.id === taskId ? res.data : task
       ));
       setEditingTask(null);
+      setEditData({});
       onTaskUpdate && onTaskUpdate();
     } catch (err) {
       console.error('failed to update task', err);
@@ -74,7 +76,8 @@ export default function TaskList({ selectedListId, onTaskUpdate }) {
       description: task.description || '',
       due_date: task.due_date ? task.due_date.slice(0, 16) : '',
       status: task.status,
-      list_id: task.list_id || ''
+      list_id: task.list_id || '',
+      priority: task.priority || 'medium'
     });
   };
 
@@ -101,18 +104,36 @@ export default function TaskList({ selectedListId, onTaskUpdate }) {
     return new Date(dueDate).toLocaleDateString();
   };
 
+  // Get priority icon and color
+  const getPriorityInfo = (priority) => {
+    switch (priority) {
+      case 'high':
+        return { icon: '🔥', color: '#ff6b6b', label: 'High' };
+      case 'medium':
+        return { icon: '⚡', color: '#ffa726', label: 'Medium' };
+      case 'low':
+        return { icon: '📝', color: '#66bb6a', label: 'Low' };
+      default:
+        return { icon: '⚡', color: '#ffa726', label: 'Medium' };
+    }
+  };
+
+  // Removed sort change handler - using default backend sorting
+
   if (loading) {
     return <div>Loading tasks...</div>;
   }
 
   return (
     <div className="task-list">
-      <h3>
-        {selectedListId 
-          ? `Tasks in ${getListName(selectedListId)}` 
-          : 'All Tasks'
-        }
-      </h3>
+      <div className="task-list-header">
+        <h3>
+          {selectedListId 
+            ? `Tasks in ${getListName(selectedListId)}` 
+            : 'All Tasks'
+          }
+        </h3>
+      </div>
       
       {tasks.length === 0 ? (
         <p>No tasks found. Create your first task!</p>
@@ -151,6 +172,14 @@ export default function TaskList({ selectedListId, onTaskUpdate }) {
                     onChange={(e) => setEditData({...editData, due_date: e.target.value})}
                   />
                   <select
+                    value={editData.priority}
+                    onChange={(e) => setEditData({...editData, priority: e.target.value})}
+                  >
+                    <option value="high">🔥 High Priority</option>
+                    <option value="medium">⚡ Medium Priority</option>
+                    <option value="low">📝 Low Priority</option>
+                  </select>
+                  <select
                     value={editData.status}
                     onChange={(e) => setEditData({...editData, status: e.target.value})}
                   >
@@ -167,9 +196,17 @@ export default function TaskList({ selectedListId, onTaskUpdate }) {
                 <div className="task-display">
                   <div className="task-header">
                     <h4>{task.title}</h4>
-                    <span className={`status status-${task.status}`}>
-                      {task.status.replace('-', ' ')}
-                    </span>
+                    <div className="task-badges">
+                      <span 
+                        className="priority-badge"
+                        style={{ backgroundColor: getPriorityInfo(task.priority).color }}
+                      >
+                        {getPriorityInfo(task.priority).icon} {getPriorityInfo(task.priority).label}
+                      </span>
+                      <span className={`status status-${task.status}`}>
+                        {task.status.replace('-', ' ')}
+                      </span>
+                    </div>
                   </div>
                   
                   {task.description && (

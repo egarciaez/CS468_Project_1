@@ -21,17 +21,38 @@ export default function Register({ onRegistered }) {
   }
 
   return (
-    <form onSubmit={submit}>
-      <h2>Register</h2>
-      {/* Controlled form inputs */}
-      <input placeholder="username" value={form.username} onChange={e => setForm({...form, username: e.target.value})} />
-      <input placeholder="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-      <input placeholder="password" type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
-      <button type="submit">Register</button>
-      
-      {/* Error display */}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-    </form>
+    <div className="auth-container">
+      <form onSubmit={submit}>
+        <h2>Create Account</h2>
+        <p style={{ color: '#6c757d', marginBottom: '2rem' }}>Join us and start organizing your tasks</p>
+        
+        {/* Controlled form inputs */}
+        <input 
+          placeholder="Username" 
+          value={form.username} 
+          onChange={e => setForm({...form, username: e.target.value})} 
+          required
+        />
+        <input 
+          placeholder="Email" 
+          type="email"
+          value={form.email} 
+          onChange={e => setForm({...form, email: e.target.value})} 
+          required
+        />
+        <input 
+          placeholder="Password" 
+          type="password" 
+          value={form.password} 
+          onChange={e => setForm({...form, password: e.target.value})} 
+          required
+        />
+        <button type="submit">Create Account</button>
+        
+        {/* Error display */}
+        {error && <div className="error">{error}</div>}
+      </form>
+    </div>
   );
 }
 

@@ -18,16 +18,31 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <form onSubmit={submit}>
-      <h2>Login</h2>
-      {/* Controlled form fields */}
-      <input placeholder="username" value={form.username} onChange={e => setForm({...form, username: e.target.value})} />
-      <input placeholder="password" type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
-      <button type="submit">Login</button>
+    <div className="auth-container">
+      <form onSubmit={submit}>
+        <h2>Welcome Back</h2>
+        <p style={{ color: '#6c757d', marginBottom: '2rem' }}>Sign in to your account</p>
+        
+        {/* Controlled form fields */}
+        <input 
+          placeholder="Username" 
+          value={form.username} 
+          onChange={e => setForm({...form, username: e.target.value})} 
+          required
+        />
+        <input 
+          placeholder="Password" 
+          type="password" 
+          value={form.password} 
+          onChange={e => setForm({...form, password: e.target.value})} 
+          required
+        />
+        <button type="submit">Sign In</button>
 
-      {/* Show error if login fails */}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-    </form>
+        {/* Show error if login fails */}
+        {error && <div className="error">{error}</div>}
+      </form>
+    </div>
   );
 }
 

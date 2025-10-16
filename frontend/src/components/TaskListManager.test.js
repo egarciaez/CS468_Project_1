@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TaskListManager from './TaskListManager';
 
@@ -18,20 +18,28 @@ jest.mock('../services/auth', () => ({
 }));
 
 describe('TaskListManager', () => {
+  const mockApi = require('../services/api');
+  
   beforeEach(() => {
     // Reset all mocks before each test
     jest.clearAllMocks();
+    // Mock successful API response
+    mockApi.get.mockResolvedValue({ data: [] });
   });
 
-  test('renders task list manager component', () => {
-    render(<TaskListManager />);
+  test('renders task list manager component', async () => {
+    await act(async () => {
+      render(<TaskListManager />);
+    });
     
     expect(screen.getByText('Task Lists')).toBeInTheDocument();
     expect(screen.getByText('Create New List')).toBeInTheDocument();
   });
 
-  test('displays create list form when create button is clicked', () => {
-    render(<TaskListManager />);
+  test('displays create list form when create button is clicked', async () => {
+    await act(async () => {
+      render(<TaskListManager />);
+    });
     
     const createButton = screen.getByText('Create New List');
     fireEvent.click(createButton);
@@ -42,8 +50,10 @@ describe('TaskListManager', () => {
     expect(screen.getByText('Cancel')).toBeInTheDocument();
   });
 
-  test('hides create list form when cancel is clicked', () => {
-    render(<TaskListManager />);
+  test('hides create list form when cancel is clicked', async () => {
+    await act(async () => {
+      render(<TaskListManager />);
+    });
     
     // Open the form
     const createButton = screen.getByText('Create New List');
@@ -58,7 +68,6 @@ describe('TaskListManager', () => {
   });
 
   test('creates a new task list', async () => {
-    const mockApi = require('../services/api');
     mockApi.post.mockResolvedValue({
       data: {
         id: 1,
@@ -67,7 +76,9 @@ describe('TaskListManager', () => {
       }
     });
 
-    render(<TaskListManager />);
+    await act(async () => {
+      render(<TaskListManager />);
+    });
     
     // Open the form
     const createButton = screen.getByText('Create New List');
