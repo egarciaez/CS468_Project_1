@@ -1,6 +1,6 @@
 # CS468_Project_1 - TaskTrack
 
-A modern, full-stack web application for task management built with the MERN stack (MongoDB, Express.js, React, Node.js). TaskTrack allows users to register, log in, create task lists, assign tasks, and track progress with a beautiful, responsive user interface.
+A modern, full-stack web application for task management built with the SERN stack (SQLite + Knex, Express.js, React, Node.js). TaskTrack allows users to register, log in, create task lists, assign tasks, and track progress with a beautiful, responsive user interface.
 
 ## 🚀 Features
 
