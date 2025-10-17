@@ -16,14 +16,12 @@ A full-stack web application for task management built with the SERN stack (SQLi
 - **Status Tracking**: Mark tasks as "todo", "in-progress", or "completed"
 - **Priority Levels**: High, medium, and low priority with visual indicators
 - **Due Date Management**: Set and track task deadlines with datetime picker
-- **List Filtering**: View all tasks or filter by specific lists
 - **Simplified Interface**: Clean, intuitive design without complex sorting options
 
 ### User Interface
-- **Modern Design**: Beautiful, responsive UI with gradient backgrounds and glassmorphism effects
+- **Modern Design**: responsive UI with gradient backgrounds and glassmorphism effects
 - **Real-time Updates**: Instant UI updates when creating, editing, or deleting tasks
 - **Simplified Design**: Clean interface focused on core functionality without complex sorting options
-- **Mobile Responsive**: Optimized for desktop, tablet, and mobile devices
 - **Intuitive Navigation**: Easy-to-use interface with clear visual feedback
 
 ### Technical Features
@@ -33,7 +31,7 @@ A full-stack web application for task management built with the SERN stack (SQLi
 - **Error Handling**: Robust error handling and validation throughout
 - **Database Persistence**: SQLite database with Knex.js query builder
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Node.js**: JavaScript runtime environment
