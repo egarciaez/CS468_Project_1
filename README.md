@@ -1,6 +1,6 @@
 # CS468_Project_1 - TaskTrack
 
-A modern, full-stack web application for task management built with the SERN stack (SQLite + Knex, Express.js, React, Node.js). TaskTrack allows users to register, log in, create task lists, assign tasks, and track progress with a beautiful, responsive user interface.
+A full-stack web application for task management built with the SERN stack (SQLite + Knex, Express.js, React, Node.js). TaskTrack allows users to register, log in, create task lists, assign tasks, and track progress with a beautiful, responsive user interface.
 
 ## Features
 
@@ -52,7 +52,7 @@ A modern, full-stack web application for task management built with the SERN sta
 - **CSS3**: Modern styling with gradients and animations
 - **Jest & React Testing Library**: Frontend testing
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running this application, make sure you have the following installed:
 
@@ -60,7 +60,7 @@ Before running this application, make sure you have the following installed:
 - **npm** (v6 or higher)
 - **Git** (for cloning the repository)
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
@@ -113,7 +113,7 @@ cd frontend
 npm test
 ```
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ### Backend Architecture
 
@@ -162,7 +162,7 @@ frontend/
 └── package.json
 ```
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register a new user
@@ -251,7 +251,7 @@ npm run build
 # Serve the build folder with a web server
 ```
 
-## 📝 Usage Examples
+## Usage Examples
 
 ### Creating a Task List
 1. Log in to your account
