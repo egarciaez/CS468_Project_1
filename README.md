@@ -2,7 +2,7 @@
 
 A modern, full-stack web application for task management built with the SERN stack (SQLite + Knex, Express.js, React, Node.js). TaskTrack allows users to register, log in, create task lists, assign tasks, and track progress with a beautiful, responsive user interface.
 
-## 🚀 Features
+## Features
 
 ### User Authentication
 - **Secure Registration & Login**: JWT-based authentication with password hashing
@@ -276,6 +276,7 @@ Backend:
 <img width="1364" height="684" alt="image" src="https://github.com/user-attachments/assets/0c9d82da-9bac-4e66-9083-c6f0cf4284ff" />
 
 Frontend: 
+
 <img width="674" height="666" alt="image" src="https://github.com/user-attachments/assets/83f9a6e0-bb77-47a2-aa37-d27f121eb6f3" />
 <img width="682" height="665" alt="image" src="https://github.com/user-attachments/assets/348cb163-544d-468d-9c09-fe8aaae7dcc9" />
 <img width="681" height="671" alt="image" src="https://github.com/user-attachments/assets/74e86bbd-f76f-4efe-b6b8-b8c33a88e2f0" />
